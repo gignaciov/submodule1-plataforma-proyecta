@@ -19,11 +19,13 @@ const store = new Vuex.Store({
     count: 1,
     proyectinos: [],
     proyectinosDjango: [],
+    proyectosDjango: [],
     jwt: localStorage.getItem('t'),
     endpoints: {
       obtainJWT: 'http://localhost:8000/api/token/',
       refreshJWT: 'http://localhost:8000/api/token/refresh/',
       obtainProyectinos: 'http://localhost:8000/api/proyectinos/',
+      obtainProyectos: 'http://localhost:8000/api/proyectos/',
     }
   },
   getters: {
@@ -37,6 +39,9 @@ const store = new Vuex.Store({
     },
     setProyectinosDjango (state, proyectinosDjango) {
       state.proyectinosDjango = proyectinosDjango
+    },
+    setProyectosDjango (state, proyectosDjango) {
+      state.proyectosDjango = proyectosDjango
     },
     increment (state) {
       state.count++
@@ -79,6 +84,20 @@ const store = new Vuex.Store({
       .then((response)=> {
       commit('setProyectinosDjango', response.data)
       console.log("Proyectinos de la API-DJANGO")
+      console.log(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    },
+    fetchProyectosDjango({commit}){
+      axios.get(this.state.endpoints.obtainProyectos, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('t')}`
+        }
+      })
+      .then((response)=> {
+      commit('setProyectosDjango', response.data)
+      console.log("Proyectos de la API-DJANGO")
       console.log(response.data)
       }).catch((error)=>{
         console.log(error)

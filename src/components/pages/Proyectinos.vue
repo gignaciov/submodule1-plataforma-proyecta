@@ -77,6 +77,14 @@
             <ul v-else>
               <li v-for="proyectino in $store.state.proyectinos" :key="proyectino.id">{{proyectino.nombre}} - {{proyectino.especialidad}} </li>
             </ul>
+            <ul>
+              <h3>Proyectinos registrados en la base de datos</h3>
+              <li v-for="proyectino2 in $store.state.proyectinosDjango" :key="proyectino2.id">{{proyectino2.nombre}} - {{proyectino2.apellido}} - {{proyectino2.especialidad}} </li>
+            </ul>
+            <ul>
+              <h3>Proyectos registrados en la base de datos</h3>
+              <li v-for="proyecto in $store.state.proyectosDjango" :key="proyecto.id">{{proyecto.nombre_proyecto}} - {{proyecto.imagen}} - {{proyecto.tipo}} </li>
+            </ul>
           </v-col>  
         </v-row>
       </v-container>
@@ -129,6 +137,7 @@ import { mapState } from 'vuex';
       this.checkLoggedIn()
       console.log(this.$store.state.authenticated)
       this.$store.dispatch('fetchProyectinosDjango')
+      this.$store.dispatch('fetchProyectosDjango')
     }
   }
 </script>
