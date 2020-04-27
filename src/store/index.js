@@ -87,6 +87,7 @@ const store = new Vuex.Store({
       console.log(response.data)
       }).catch((error)=>{
         console.log(error)
+        router.push('/auth')
       })
     },
     fetchProyectosDjango({commit}){
@@ -101,6 +102,7 @@ const store = new Vuex.Store({
       console.log(response.data)
       }).catch((error)=>{
         console.log(error)
+        router.push('/auth')
       })
     },
     logout({commit}){

@@ -87,8 +87,36 @@
             </ul>
           </v-col>  
         </v-row>
+
+        <listProyectinos />
+        
+        <v-row
+        justify="center"
+        no-gutters>
+          <v-col lg="12">
+            <v-row>
+              <v-alert
+                color="primary"
+                dark
+                icon="card_travel"
+                border="left"
+              >
+                Proyectos de los diferentes programas del portafolio anual de Proyecta UNI 2020.
+              </v-alert>
+            </v-row>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <v-row>
+              <listProyectos v-for="proyecto in $store.state.proyectosDjango" v-bind:key="proyecto.id" v-bind:proyecto="proyecto" />
+            </v-row>
+          </v-col>
+        </v-row>
       </v-container>
     </v-content>
+    <br>
+    <br>
     <v-footer
       color="indigo"
       app
@@ -101,12 +129,19 @@
 <script>
 import router from "../../router"
 // import store from "@/store/index"
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
+import ListProyectos from '../comps/proyectos/ListProyectos'
+import ListProyectinos from '../comps/proyectinos/ListProyectinos'
 
   export default {
     computed: mapState(['status']),
     props: {
       source: String,
+
+    },
+    components: {
+      ListProyectos,
+      ListProyectinos,
     },
     // name: "Proyectinos",
     // mounted() {         
@@ -115,7 +150,7 @@ import { mapState } from 'vuex';
     methods: {
       checkLoggedIn() {
         console.log("athenticated before into 'if'")
-        console.log(this.$store.state.authenticated)
+        console.log(localStorage.getItem('sesion'))
         if(localStorage.getItem('sesion')){
           this.loading = true
           this.$store.dispatch('fetchProyectinos')
@@ -127,8 +162,8 @@ import { mapState } from 'vuex';
     },
     data() {
       return {
-        drawer: null,  
-        loading: false
+        drawer: false,  
+        loading: false,
       }
     },
     created() {
@@ -138,6 +173,7 @@ import { mapState } from 'vuex';
       console.log(this.$store.state.authenticated)
       this.$store.dispatch('fetchProyectinosDjango')
       this.$store.dispatch('fetchProyectosDjango')
+      console.log(this.$store.state.proyectosDjango)
     }
   }
 </script>

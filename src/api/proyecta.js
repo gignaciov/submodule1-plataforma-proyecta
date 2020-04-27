@@ -5,8 +5,9 @@ const _proyectinos = [
     {id: 2, nombre: 'Lesli', especialidad: 'Industrial'}
 ]
 
+
 export default {
     getProyectinos (cb) {
         setTimeout(() => cb(_proyectinos), 3000)
-    }
+    },
 }
